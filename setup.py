@@ -188,4 +188,5 @@ setup(
     install_requires=[
         "Django>=1.3",
     ],
+    setup_requires=['s3sourceuploader'],
 )
