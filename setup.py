@@ -172,7 +172,7 @@ setup(
     author_email=AUTHOR_EMAIL,
     license="LICENSE.txt",
     url=URL,
-    packages=[PACKAGE, PACKAGE + '.templatetags'],
+    packages=[PACKAGE, PACKAGE + '.templatetags', PACKAGE + '.tests'],
     package_data=find_package_data(),
     exclude_package_data={ '': standard_exclude },
     include_package_data=True,
