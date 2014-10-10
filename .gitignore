@@ -18,3 +18,5 @@ docs/_build
 .tox
 pytest-results.xml
 full.log
+*egg
+*flymake*
