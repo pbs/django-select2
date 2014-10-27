@@ -2946,12 +2946,12 @@ the specific language governing permissions and limitations under the Apache Lic
             if (this.select) {
                 this.select.val(val);
             } else {
-                unique = [];
+                unique = new HashSet();
                 // filter out duplicates
                 $(val).each(function () {
-                    if (indexOf(this, unique) < 0) unique.push(this);
+                    unique.add(this);
                 });
-                this.opts.element.val(unique.length === 0 ? "" : unique.join(this.opts.separator));
+                this.opts.element.val(unique.length === 0 ? "" : unique.values().join(this.opts.separator));
             }
         },
 
