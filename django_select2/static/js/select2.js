@@ -2949,9 +2949,16 @@ the specific language governing permissions and limitations under the Apache Lic
                 unique = new HashSet();
                 // filter out duplicates
                 $(val).each(function () {
-                    unique.add(this);
+                    if (typeof this === 'object')
+                    {
+                        unique.add(this.toString());
+                    }
+                    else
+                    {
+                        unique.add(this);
+                    }
                 });
-                this.opts.element.val(unique.length === 0 ? "" : unique.values().join(this.opts.separator));
+                this.opts.element.val(unique.isEmpty()? "" : unique.values().join(this.opts.separator));
             }
         },
 
