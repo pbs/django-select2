@@ -23,9 +23,13 @@ logger = logging.getLogger(__name__)
 def get_select2_js_libs():
     from django.conf import settings
     if settings.configured and settings.DEBUG:
-        return ('js/select2.js', )
+        return ('js/jshashtable-3.0.js',
+                'js/jshashset-3.0.js',
+                'js/select2.js', )
     else:
-        return ('js/select2.min.js', )
+        return ('js/jshashtable-3.0.js',
+                'js/jshashset-3.0.js',
+                'js/select2.min.js', )
 
 def get_select2_heavy_js_libs():
     libs = get_select2_js_libs()
