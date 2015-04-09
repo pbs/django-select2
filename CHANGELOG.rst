@@ -1,6 +1,16 @@
 CHANGELOG
 =========
 
+Revision b386523 (09.04.2015, 07:14 UTC)
+----------------------------------------
+
+No new issues.
+
+* Misc commits
+
+  * make new String("2") and "2" the same for HashSet
+  * Speed improvement. Replace list with hashset.
+
 Revision ebb8263 (21.10.2014, 11:20 UTC)
 ----------------------------------------
 
