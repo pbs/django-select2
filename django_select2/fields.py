@@ -3,6 +3,7 @@ Contains all the Django fields for Select2.
 """
 
 import logging
+import weakref
 
 logger = logging.getLogger(__name__)
 
@@ -371,7 +372,7 @@ class QuerysetChoiceMixin(ChoiceMixin):
         # accessed) so that we can ensure the QuerySet has not been consumed. This
         # construct might look complicated but it allows for lazy evaluation of
         # the queryset.
-        return FilterableModelChoiceIterator(self)
+        return FilterableModelChoiceIterator(weakref.proxy(self))
 
     choices = property(_get_choices, ChoiceMixin._set_choices)
 
@@ -494,7 +495,7 @@ class HeavySelect2FieldBaseMixin(object):
             self.widget.field_id = self.field_id
 
         # Widget should have been instantiated by now.
-        self.widget.field = self
+        self.widget.field = weakref.proxy(self)
 
         if logger.isEnabledFor(logging.DEBUG):
             t2 = util.timer_start('HeavySelect2FieldBaseMixin.__init__:choices initialization')
@@ -524,7 +525,7 @@ class HeavyChoiceField(ChoiceMixin, forms.Field):
     def __init__(self, *args, **kwargs):
         super(HeavyChoiceField, self).__init__(*args, **kwargs)
         # Widget should have been instantiated by now.
-        self.widget.field = self
+        self.widget.field = weakref.proxy(self)
 
     def to_python(self, value):
         if value == self.empty_value or value in validators.EMPTY_VALUES:
