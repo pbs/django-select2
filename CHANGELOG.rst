@@ -1,6 +1,15 @@
 CHANGELOG
 =========
 
+Revision 6743191 (05.05.2015, 16:01 UTC)
+----------------------------------------
+
+No new issues.
+
+* Misc commits
+
+  * fix some circular references discovered with objgraph
+
 Revision b386523 (09.04.2015, 07:14 UTC)
 ----------------------------------------
 
