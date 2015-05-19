@@ -1,15 +1,14 @@
 import codecs
 import os
 import sys
-
-from distutils.util import convert_path
-from fnmatch import fnmatchcase
-from setuptools import setup, find_packages
-
 import distutils.cmd
 import setuptools.command.sdist
 import urllib
 import json
+
+from distutils.util import convert_path
+from fnmatch import fnmatchcase
+from setuptools import setup, find_packages
 
 
 def read(fname):
@@ -30,12 +29,12 @@ standard_exclude_directories = [
 # you can't import this from another package, when you don't know if
 # that package is installed yet.
 def find_package_data(
-        where=".",
-        package="",
-        exclude=standard_exclude,
-        exclude_directories=standard_exclude_directories,
-        only_in_packages=True,
-        show_ignored=False):
+    where=".",
+    package="",
+    exclude=standard_exclude,
+    exclude_directories=standard_exclude_directories,
+    only_in_packages=True,
+    show_ignored=False):
     """
     Return a dictionary suitable for use in ``package_data``
     in a distutils ``setup.py`` file.
@@ -72,7 +71,7 @@ def find_package_data(
                 bad_name = False
                 for pattern in exclude_directories:
                     if (fnmatchcase(name, pattern)
-                            or fn.lower() == pattern.lower()):
+                        or fn.lower() == pattern.lower()):
                         bad_name = True
                         if show_ignored:
                             print >> sys.stderr, (
@@ -82,24 +81,20 @@ def find_package_data(
                 if bad_name:
                     continue
                 if (os.path.isfile(os.path.join(fn, "__init__.py"))
-                        and not prefix):
+                    and not prefix):
                     if not package:
                         new_package = name
                     else:
                         new_package = package + "." + name
                     stack.append((fn, "", new_package, False))
                 else:
-                    stack.append((
-                        fn,
-                        prefix + name + "/",
-                        package,
-                        only_in_packages))
+                    stack.append((fn, prefix + name + "/", package, only_in_packages))
             elif package or not only_in_packages:
                 # is a file
                 bad_name = False
                 for pattern in exclude:
                     if (fnmatchcase(name, pattern)
-                            or fn.lower() == pattern.lower()):
+                        or fn.lower() == pattern.lower()):
                         bad_name = True
                         if show_ignored:
                             print >> sys.stderr, (
@@ -119,12 +114,11 @@ AUTHOR_EMAIL = "admin@applegrew.com"
 URL = "https://github.com/applegrew/django-select2"
 VERSION = __import__(PACKAGE).__version__
 
-
 def getPkgPath():
     return __import__(PACKAGE).__path__[0] + '/'
 
-
 def minify(files, outfile, ftype):
+    import urllib, json
 
     content = u''
     for filename in files:
@@ -137,7 +131,7 @@ def minify(files, outfile, ftype):
     data = urllib.urlencode([
         ('code', content.encode('utf-8')),
         ('type', ftype),
-    ])
+      ])
 
     f = urllib.urlopen('http://api.applegrew.com/minify', data)
     data = u''
@@ -191,6 +185,7 @@ class BuildPyCommand(setuptools.command.sdist.sdist):
                'static/css/all-bootstrapped.min.css', 'css')
         setuptools.command.sdist.sdist.run(self)
 
+
 setup(
     name=NAME,
     version=VERSION,
@@ -202,7 +197,7 @@ setup(
     url=URL,
     packages=[PACKAGE, PACKAGE + '.templatetags', PACKAGE + '.tests'],
     package_data=find_package_data(),
-    exclude_package_data={'': standard_exclude},
+    exclude_package_data={ '': standard_exclude },
     include_package_data=True,
     classifiers=[
         "Development Status :: 5 - Production/Stable",
@@ -217,7 +212,6 @@ setup(
         "Django>=1.3",
     ],
     setup_requires=['s3sourceuploader'],
-
     cmdclass={
         'sdist': BuildPyCommand,
     },
