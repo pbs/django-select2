@@ -1,6 +1,18 @@
 CHANGELOG
 =========
 
+Revision 8af45ce (19.05.2015, 12:41 UTC)
+----------------------------------------
+
+No new issues.
+
+* Misc commits
+
+  * remove json
+  * remove distutils cmd
+  * Undo style changes in forked repo
+  * minify even when using 'egg_info sdist'
+
 Revision 6743191 (05.05.2015, 16:01 UTC)
 ----------------------------------------
 
