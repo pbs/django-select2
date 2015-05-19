@@ -14,7 +14,7 @@ package is to render choices using Select2 JavaScript library, hence these compo
 with choice fields.
 
 Widgets are generally of two types :-
-
+4
     1. **Light** --
     They are not meant to be used when there are too many options, say, in thousands. This
     is because all those options would have to be pre-rendered onto the page and JavaScript would
@@ -79,7 +79,7 @@ The view - `Select2View`, exposed here is meant to be used with 'Heavy' fields a
 import logging
 logger = logging.getLogger(__name__)
 
-__version__ = "4.2.2.pbs.3"
+__version__ = "4.2.2.pbs.4"
 
 __RENDER_SELECT2_STATICS = False
 __ENABLE_MULTI_PROCESS_SUPPORT = False
