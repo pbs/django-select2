@@ -1,7 +1,6 @@
 import codecs
 import os
 import sys
-import distutils.cmd
 import setuptools.command.sdist
 import urllib
 import json
