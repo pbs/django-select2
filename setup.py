@@ -2,8 +2,6 @@ import codecs
 import os
 import sys
 import setuptools.command.sdist
-import urllib
-import json
 
 from distutils.util import convert_path
 from fnmatch import fnmatchcase
