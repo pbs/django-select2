@@ -155,7 +155,7 @@ def minify(files, outfile, ftype):
         print data['error']
         raise Exception('Could not minify.')
 
-if len(sys.argv) > 1 and 'sdist' == sys.argv[1]:
+if len(sys.argv) > 1 and 'sdist' in sys.argv[1:]:
     minify(['static/js/select2.js'], 'static/js/select2.min.js', 'js')
     minify(['static/js/heavy_data.js'], 'static/js/heavy_data.min.js', 'js')
     minify(['static/css/select2.css'], 'static/css/select2.min.css', 'css')
