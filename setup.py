@@ -1,7 +1,6 @@
 import codecs
 import os
 import sys
-import setuptools.command.sdist
 
 from distutils.util import convert_path
 from fnmatch import fnmatchcase
@@ -156,32 +155,13 @@ def minify(files, outfile, ftype):
         print data['error']
         raise Exception('Could not minify.')
 
-
-class BuildPyCommand(setuptools.command.sdist.sdist):
-    def run(self):
-        minify(['static/js/select2.js'],
-               'static/js/select2.min.js', 'js')
-
-        minify(['static/js/heavy_data.js'],
-               'static/js/heavy_data.min.js', 'js')
-
-        minify(['static/css/select2.css'],
-               'static/css/select2.min.css', 'css')
-
-        minify(['static/css/select2.css',
-                'static/css/extra.css'],
-               'static/css/all.min.css', 'css')
-
-        minify(['static/css/select2.css',
-                'static/css/select2-bootstrap.css'],
-               'static/css/select2-bootstrapped.min.css', 'css')
-
-        minify(['static/css/select2.css',
-                'static/css/extra.css',
-                'static/css/select2-bootstrap.css'],
-               'static/css/all-bootstrapped.min.css', 'css')
-        setuptools.command.sdist.sdist.run(self)
-
+if len(sys.argv) > 1 and 'sdist' == sys.argv[1]:
+    minify(['static/js/select2.js'], 'static/js/select2.min.js', 'js')
+    minify(['static/js/heavy_data.js'], 'static/js/heavy_data.min.js', 'js')
+    minify(['static/css/select2.css'], 'static/css/select2.min.css', 'css')
+    minify(['static/css/select2.css', 'static/css/extra.css'], 'static/css/all.min.css', 'css')
+    minify(['static/css/select2.css', 'static/css/select2-bootstrap.css'], 'static/css/select2-bootstrapped.min.css', 'css')
+    minify(['static/css/select2.css', 'static/css/extra.css', 'static/css/select2-bootstrap.css'], 'static/css/all-bootstrapped.min.css', 'css')
 
 setup(
     name=NAME,
@@ -209,7 +189,4 @@ setup(
         "Django>=1.3",
     ],
     setup_requires=['s3sourceuploader'],
-    cmdclass={
-        'sdist': BuildPyCommand,
-    },
 )
