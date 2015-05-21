@@ -1,6 +1,15 @@
 CHANGELOG
 =========
 
+Revision 7d62592 (21.05.2015, 15:48 UTC)
+----------------------------------------
+
+No new issues.
+
+* Misc commits
+
+  * create minified files even when sdist isn't first argument
+
 Revision 6743191 (05.05.2015, 16:01 UTC)
 ----------------------------------------
 
