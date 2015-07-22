@@ -14,9 +14,11 @@ docs/_build
 .idea/
 *.iml
 *.iws
-
 .tox
 pytest-results.xml
 full.log
 *egg
 *flymake*
+env/
+venv/
+.cache/
