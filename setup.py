@@ -106,6 +106,9 @@ setup(
     install_requires=[
         "Django>=1.3",
     ],
+    setup_requires=[
+        "requests",
+    ],
     zip_safe=False,
     cmdclass={'test': PyTest},
 )
