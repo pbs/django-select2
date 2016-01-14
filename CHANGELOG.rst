@@ -1,6 +1,15 @@
 CHANGELOG
 =========
 
+Revision ad9da3c (14.01.2016, 12:56 UTC)
+----------------------------------------
+
+No new issues.
+
+* Misc commits
+
+  * Pin pytest to last working version.
+
 Revision 7c6cd97 (23.07.2015, 08:29 UTC)
 ----------------------------------------
 
