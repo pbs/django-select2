@@ -1,6 +1,15 @@
 CHANGELOG
 =========
 
+Revision 9a5ce84 (26.08.2016, 07:01 UTC)
+----------------------------------------
+
+No new issues.
+
+* Misc commits
+
+  * Upgrade used pytest.
+
 Revision ad9da3c (14.01.2016, 12:56 UTC)
 ----------------------------------------
 
