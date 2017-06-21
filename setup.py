@@ -26,31 +26,30 @@ VERSION = __import__(PACKAGE).__version__
 def getPkgPath():
     return __import__(PACKAGE).__path__[0] + '/'
 
-
 def minify(files, outfile, ftype):
-    import requests
+    """ using jsmin and cssmin, minify the list of javascript/css files, and write it in the outfile """
+    from jsmin import jsmin
+    from cssmin import cssmin
     import io
+    # make a dictionary to associate file types with the tool/function to minify it
+    tools = {
+        'js': jsmin,
+        'css': cssmin
+    }
 
+    # put all content from files in one variable
+    # minified files contents are separated by a newline
     content = ''
-
     for filename in files:
         with io.open(getPkgPath() + filename, 'r', encoding='utf8') as f:
-            content = content + '\n' + f.read()
+            content = content + '\n' + tools[ftype](f.read())
+    
+    # if any content was minified, write it to the output file
+    if content:
+        with  io.open(getPkgPath() + outfile, 'w', encoding='utf8') as f:
+            f.write(content)
 
-    data = {
-        'code': content,
-        'type': ftype,
-    }
-    response = requests.post('http://api.applegrew.com/minify', data)
-    response.raise_for_status()
-    response = response.json()
-    if response['success']:
-        with io.open(getPkgPath() + outfile, 'w', encoding='utf8') as f:
-            f.write(response['compiled_code'])
-    else:
-        raise Exception('%(error_code)s: "%(error)s"' % response)
-
-
+# this is the main thing that is run when setup.py is called with sdist to package django_select2
 if len(sys.argv) > 1 and 'sdist' in sys.argv[1:]:
     minify(['static/django_select2/js/select2.js'], 'static/django_select2/js/select2.min.js', 'js')
     minify(['static/django_select2/js/heavy_data.js'], 'static/django_select2/js/heavy_data.min.js', 'js')
@@ -107,7 +106,8 @@ setup(
         "Django>=1.3",
     ],
     setup_requires=[
-        "requests",
+        "jsmin",
+        "cssmin",
     ],
     zip_safe=False,
     cmdclass={'test': PyTest},
