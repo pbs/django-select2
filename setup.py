@@ -41,8 +41,19 @@ def minify(files, outfile, ftype):
     # minified files contents are separated by a newline
     content = ''
     for filename in files:
-        with io.open(getPkgPath() + filename, 'r', encoding='utf8') as f:
-            content = content + '\n' + tools[ftype](f.read())
+        try:
+            file_content = ''
+            with io.open(getPkgPath() + filename, 'r', encoding='utf8') as f:
+                file_content = f.read()
+                content = '\n'.join([content, tools[ftype](file_content)])
+        except Exception as generic_exception:
+            if file_content: # if exception occured at compression/minification of file
+                print "Exception occurred: ({0}); file {1} not minified!".format(
+                    generic_exception, filename)
+                content = file_content # minified file has same content as original file
+            else:
+                print "Exception at reading of static file, re-raising ..."
+                raise generic_exception
     
     # if any content was minified, write it to the output file
     if content:
