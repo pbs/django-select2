@@ -5,6 +5,7 @@ from __future__ import unicode_literals
 import codecs
 import os
 import sys
+import io
 
 from setuptools import setup, find_packages, Command
 
@@ -26,11 +27,15 @@ VERSION = __import__(PACKAGE).__version__
 def getPkgPath():
     return __import__(PACKAGE).__path__[0] + '/'
 
+def minify_file(filename, func):
+    with io.open(os.path.join(getPkgPath(), filename), 'r', encoding='utf8') as f:
+        file_content = f.read()
+        return func(file_content)
+
 def minify(files, outfile, ftype):
     """ using jsmin and cssmin, minify the list of javascript/css files, and write it in the outfile """
     from jsmin import jsmin
     from cssmin import cssmin
-    import io
     # make a dictionary to associate file types with the tool/function to minify it
     tools = {
         'js': jsmin,
@@ -39,22 +44,9 @@ def minify(files, outfile, ftype):
 
     # put all content from files in one variable
     # minified files contents are separated by a newline
-    content = ''
-    for filename in files:
-        try:
-            file_content = ''
-            with io.open(getPkgPath() + filename, 'r', encoding='utf8') as f:
-                file_content = f.read()
-                content = '\n'.join([content, tools[ftype](file_content)])
-        except Exception as generic_exception:
-            if file_content: # if exception occured at compression/minification of file
-                print "Exception occurred: ({0}); file {1} not minified!".format(
-                    generic_exception, filename)
-                content = file_content # minified file has same content as original file
-            else:
-                print "Exception at reading of static file, re-raising ..."
-                raise generic_exception
-    
+    content = '\n'.join((minify_file(file_, tools[ftype])
+                         for file_ in files))
+
     # if any content was minified, write it to the output file
     if content:
         with  io.open(getPkgPath() + outfile, 'w', encoding='utf8') as f:
