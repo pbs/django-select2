@@ -1,6 +1,18 @@
 CHANGELOG
 =========
 
+Revision 283e846 (23.06.2017, 08:48 UTC)
+----------------------------------------
+
+* LUN-3769
+
+  * Bump version to 4.3.1.pbs.2
+  * minify a file in a func; no exception handling
+  * add exception handling
+  * Use local instead of online minifiers
+
+No other commits.
+
 Revision 9a5ce84 (26.08.2016, 07:01 UTC)
 ----------------------------------------
 
