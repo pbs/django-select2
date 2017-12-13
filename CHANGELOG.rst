@@ -1,6 +1,15 @@
 CHANGELOG
 =========
 
+Revision 4c658e1 (13.12.2017, 13:23 UTC)
+----------------------------------------
+
+No new issues.
+
+* Misc commits
+
+  * Use only django 1.x.y
+
 Revision 283e846 (23.06.2017, 08:48 UTC)
 ----------------------------------------
 
