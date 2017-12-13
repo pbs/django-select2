@@ -106,7 +106,7 @@ setup(
         "Framework :: Django",
     ],
     install_requires=[
-        "Django>=1.3",
+        "Django>=1.3,<1.9a",
     ],
     setup_requires=[
         "jsmin",
